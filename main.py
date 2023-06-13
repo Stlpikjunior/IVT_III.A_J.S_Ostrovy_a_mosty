@@ -11,7 +11,7 @@ ph = 50
 canvas = tk.Canvas(root, width = cw*pw+100, height = ch*ph, bg = 'grey')
 canvas.pack()
 
-coins = 360
+coins = 0
 
 
 field_switcher = True
@@ -49,21 +49,17 @@ def changer(e):
        ny = (e.y//ph)*ph
 
        if field_switcher == True:
-           coins -=10
-           if coins>=0:
+
             canvas.create_image(nx,ny, anchor='nw', image=img3, tag = 'bridge')
-           
+            coins +=10
             canvas.itemconfig(text,text = coins)
 
          
        else:
-           coins -=50
-           if coins>=0:
-            canvas.create_image(nx,ny,anchor = 'nw', image = img2, tag = 'island')
-            canvas.itemconfig(text,text = coins)
-           else:
-             canvas.create_image(nx,ny,anchor = 'nw', image = img1)
-             field_switcher = True
+          canvas.create_image(nx,ny,anchor = 'nw', image = img2, tag = 'island')
+          coins += 50
+          canvas.itemconfig(text,text = coins)
+
        canvas.delete(zoz[0])
        temp = zoz[0]
        canvas.delete(temp)
@@ -98,4 +94,3 @@ canvas.bind('<Button-1>', changer)
 canvas.tag_bind('bridge','<Button-1>', spinner)
 canvas.tag_bind('switcher','<Button-1>', switcher)
 root.mainloop()
-
